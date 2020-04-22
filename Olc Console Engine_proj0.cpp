@@ -8,8 +8,8 @@
 
 using namespace std;
 
-const int WIDTH = 140;
-const int HEIGHT = 120;
+const int WIDTH = 350;
+const int HEIGHT = 200;
 // first 3 bools are the values of the 3 blocks in the prev generation
 // fourth bool is the value of the middle block in next generation
 
@@ -33,7 +33,6 @@ struct Line {
       cell[i] = false;
   }
 
-
 };
 
 class Example : public olcConsoleGameEngine {
@@ -47,7 +46,7 @@ class Example : public olcConsoleGameEngine {
     lines[0].cell[WIDTH/2] = true;
 
     // create next generations
-    for (int i = 1; i < HEIGHT; i++) {
+    for (int i = 1; i < HEIGHT / 1.25; i++) {
       lines[i] = create_new_from_prev(lines[i - 1]);
     }
   };
@@ -69,7 +68,7 @@ class Example : public olcConsoleGameEngine {
     // create and initialize a new line object
     Line next = Line(); 
 
-    // loop through in chunks of 3
+    // loop through cells
     for (int i = 1; i < WIDTH - 2; i = i + 1) {
       // apply first 4 rules
       int rules_that_matched = 0;
@@ -80,7 +79,7 @@ class Example : public olcConsoleGameEngine {
           rules_that_matched++;
         }
       }
-      // apply last 3 rules
+      // apply last 4 rules
       for (auto& rule : {rule5, rule6, rule7, rule8}) {
         if (prev.cell[i - 1] == rule[0] && prev.cell[i] == rule[1] &&
             prev.cell[i + 1] == rule[2]) {
@@ -99,29 +98,9 @@ class Example : public olcConsoleGameEngine {
   vector<Line> lines;
 };
 
-
-
-
-
-
 int main() {
   Example demo;
-  demo.ConstructConsole(WIDTH, HEIGHT, 6, 6);
+  demo.ConstructConsole(WIDTH, HEIGHT, 2, 2);
   demo.Start();
-
-
   return 0;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started:
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add
-//   Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project
-//   and select the .sln file
