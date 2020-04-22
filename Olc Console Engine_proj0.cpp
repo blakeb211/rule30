@@ -2,14 +2,14 @@
 // Program execution begins and ends there.
 //
 
-#include "olcConsoleGameEngine.h"
+#include "olcConsoleGameEngineGL.h"
 #include <iostream>
 #include <cassert>
 
 using namespace std;
 
-const int WIDTH = 350;
-const int HEIGHT = 200;
+const int WIDTH = 260;
+const int HEIGHT = 160;
 // first 3 bools are the values of the 3 blocks in the prev generation
 // fourth bool is the value of the middle block in next generation
 
@@ -46,7 +46,7 @@ class Example : public olcConsoleGameEngine {
     lines[0].cell[WIDTH/2] = true;
 
     // create next generations
-    for (int i = 1; i < HEIGHT / 1.25; i++) {
+    for (int i = 1; i < HEIGHT / 1.20; i++) {
       lines[i] = create_new_from_prev(lines[i - 1]);
     }
   };
@@ -54,14 +54,14 @@ class Example : public olcConsoleGameEngine {
   bool OnUserCreate() {
     // draw all the lines
     for (int yi = 0; yi < HEIGHT; yi++)
-      draw_line(lines[yi], yi) ;
+      draw_line(lines[yi], yi);
       return true;
   }
 
   void draw_line(Line& l, int ycoord) {
     for (int i = 0; i < WIDTH; i++)
       if (l.cell[i] == true)
-        Draw(i, ycoord);
+        Draw(i, ycoord, 'x');
   }
 
   Line create_new_from_prev(Line& prev) { 
@@ -100,7 +100,7 @@ class Example : public olcConsoleGameEngine {
 
 int main() {
   Example demo;
-  demo.ConstructConsole(WIDTH, HEIGHT, 2, 2);
+  demo.ConstructConsole(WIDTH, HEIGHT, 4, 4);
   demo.Start();
   return 0;
 }

@@ -158,7 +158,7 @@
     <ClCompile Include="Olc Console Engine_proj0.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="olcConsoleGameEngine.h" />
+    <ClInclude Include="olcConsoleGameEngineGL.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="ElementaryCARule030_1000.gif" />
