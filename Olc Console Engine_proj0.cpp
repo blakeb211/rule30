@@ -8,8 +8,8 @@
 
 using namespace std;
 
-const int WIDTH = 260;
-const int HEIGHT = 160;
+const int WIDTH = 540;
+const int HEIGHT = 320;
 // first 3 bools are the values of the 3 blocks in the prev generation
 // fourth bool is the value of the middle block in next generation
 
@@ -61,7 +61,7 @@ class Example : public olcConsoleGameEngine {
   void draw_line(Line& l, int ycoord) {
     for (int i = 0; i < WIDTH; i++)
       if (l.cell[i] == true)
-        Draw(i, ycoord, 'x');
+        Draw(i, ycoord);
   }
 
   Line create_new_from_prev(Line& prev) { 
@@ -100,7 +100,7 @@ class Example : public olcConsoleGameEngine {
 
 int main() {
   Example demo;
-  demo.ConstructConsole(WIDTH, HEIGHT, 4, 4);
+  demo.ConstructConsole(WIDTH, HEIGHT, 2, 2);
   demo.Start();
   return 0;
 }
