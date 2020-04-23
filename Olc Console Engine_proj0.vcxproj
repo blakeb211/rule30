@@ -163,6 +163,9 @@
   <ItemGroup>
     <CopyFileToFolders Include="ElementaryCARule030_1000.gif" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Screenshot of program output.JPG" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
