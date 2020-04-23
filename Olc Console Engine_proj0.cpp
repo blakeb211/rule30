@@ -14,16 +14,16 @@ const int HEIGHT = 320;
 // first 3 bools are the values of the 3 blocks in the prev generation
 // fourth bool is the value of the middle block in next generation
 
-// result is 0 in middle block below
-bool rule1[3]{true, true, true};
-bool rule2[3]{true, true, false};
-bool rule3[3]{true, false, true};
-bool rule4[3]{false, false, false};
-// result is 1 in the middle block below
-bool rule5[3]{true, false, false};
-bool rule6[3]{false, true, true};
-bool rule7[3]{false, true, false};
-bool rule8[3]{false, false, true};
+// middle block of next generation is empty if the 4th value is false
+bool rule1[4]{true, true, true, false};
+bool rule2[4]{true, true, false,false };
+bool rule3[4]{true, false, true, false};
+bool rule4[4]{false, false, false, false};
+// middle block of next generation has a block in it if the 4th value is true
+bool rule5[4]{true, false, false, true};
+bool rule6[4]{false, true, true, true};
+bool rule7[4]{false, true, false, true};
+bool rule8[4]{false, false, true, true};
 
 struct Line {
   bool cell[WIDTH]{};
@@ -72,18 +72,12 @@ public:
     for (int i = 1; i < WIDTH - 2; i = i + 1) {
       // apply first 4 rules
       int rules_that_matched = 0;
-      for (auto &rule : {rule1, rule2, rule3, rule4}) {
+      for (auto &rule : {rule1, rule2, rule3, rule4, rule5, rule6, rule7, rule8}) {
         if (prev.cell[i - 1] == rule[0] && prev.cell[i] == rule[1] &&
             prev.cell[i + 1] == rule[2]) {
-          next.cell[i] = false;
-          rules_that_matched++;
-        }
-      }
-      // apply last 4 rules
-      for (auto &rule : {rule5, rule6, rule7, rule8}) {
-        if (prev.cell[i - 1] == rule[0] && prev.cell[i] == rule[1] &&
-            prev.cell[i + 1] == rule[2]) {
-          next.cell[i] = true;
+          // set the middle block of the next generation to the 4th item in the
+          // rule array
+          next.cell[i] = rule[3]; 
           rules_that_matched++;
         }
       }
